@@ -53,4 +53,4 @@ flutter:
         - asset: fonts/Montserrat/Montserrat-Bold.ttf
     - family: Montserrat-Semibold
       fonts:
-        - asset: fonts/Montserrat/Montserrat-Semibold.ttf
+        - asset: fonts/Montserrat/Montserrat-SemiBold.ttf
