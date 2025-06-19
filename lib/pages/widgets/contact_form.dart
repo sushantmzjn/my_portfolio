@@ -14,7 +14,7 @@ class ContactForm extends StatelessWidget {
         Text(
           'Quick Contact Form',
           style: TextStyles.boldTextStyle.copyWith(
-            fontSize: 18,
+            fontSize: 20,
             color: Colors.white,
           ),
         ),

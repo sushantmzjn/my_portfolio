@@ -12,7 +12,7 @@ class AddressInfo extends StatelessWidget {
         Text(
           'Contacts',
           style: TextStyles.boldTextStyle.copyWith(
-            fontSize: 18,
+            fontSize: 20,
             color: Colors.white,
           ),
         ),
