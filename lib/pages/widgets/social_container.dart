@@ -31,13 +31,13 @@ class _SocialContainerState extends State<SocialContainer> {
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.grey[700],
+            color: _isHovered ? Colors.white : Colors.grey[700],
           ),
           child: Image.asset(
             widget.imagePath,
             width: 18,
             height: 18,
-            color: _isHovered ? Colors.white : Colors.grey,
+            color: _isHovered ? Colors.black : Colors.grey,
           ),
         ),
       ),
