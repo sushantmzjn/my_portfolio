@@ -6,7 +6,8 @@ import 'package:latlong2/latlong.dart';
 class MapScreen extends StatefulWidget {
   MapScreen({super.key});
   final MapController _mapController = MapController();
-  final LatLng position = LatLng(27.6709, 85.3197);
+  final double latitude = 27.628581725329084;
+  final double longitude = 85.30367426721098;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -15,7 +16,7 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   double currentZoom = 18.0;
   final double minZoom = 1.0;
-  final double maxZoom = 22.0;
+  final double maxZoom = 20.0;
   final double zoomStep = 1.0;
 
   void _zoomIn() {
@@ -42,6 +43,13 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
+  //  void _openMap() {
+  //   final mapUrl = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+
+  //   // Open in new tab
+  //   html.window.open(mapUrl, '_blank');
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -50,7 +58,7 @@ class _MapScreenState extends State<MapScreen> {
           mapController: widget._mapController,
           options: MapOptions(
             initialZoom: currentZoom,
-            initialCenter: widget.position,
+            initialCenter: LatLng(widget.latitude, widget.longitude),
             minZoom: minZoom,
             maxZoom: maxZoom,
             interactionOptions: const InteractionOptions(
@@ -78,7 +86,7 @@ class _MapScreenState extends State<MapScreen> {
                 Marker(
                   width: 24.0,
                   height: 24.0,
-                  point: widget.position,
+                  point: LatLng(widget.latitude, widget.longitude),
                   child: Image.asset(
                     'assets/images/pin.png',
                     color: Colors.blue,
@@ -133,6 +141,7 @@ class _MapScreenState extends State<MapScreen> {
             ],
           ),
         ),
+        // CustomOutlinedButton(onPressed: () {}, label: 'GET DIRECTION'),
       ],
     );
   }
