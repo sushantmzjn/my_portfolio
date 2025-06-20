@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/text_styles.dart';
+import 'package:portfolio/core/url_launcher.dart';
 
 class SocialSidebar extends StatelessWidget {
   const SocialSidebar({super.key});
@@ -35,25 +36,43 @@ class SocialSidebar extends StatelessWidget {
               child: Container(height: 1.5, width: 60, color: Colors.grey),
             ),
             SizedBox(height: 50),
-            Image.asset(
-              'assets/images/fb.png',
-              width: 18,
-              height: 18,
-              color: Colors.white,
+            InkWell(
+              onTap: () {
+                urlLaunch('mailto:sushantmaharjan08@gmail.com', context);
+              },
+              child: Image.asset(
+                'assets/images/gmail.png',
+                width: 18,
+                height: 18,
+                color: Colors.white,
+              ),
             ),
             SizedBox(height: 16),
-            Image.asset(
-              'assets/images/github.png',
-              width: 18,
-              height: 18,
-              color: Colors.white,
+            InkWell(
+              onTap: () {
+                urlLaunch('https://github.com/sushantmzjn', context);
+              },
+              child: Image.asset(
+                'assets/images/github.png',
+                width: 18,
+                height: 18,
+                color: Colors.white,
+              ),
             ),
             SizedBox(height: 16),
-            Image.asset(
-              'assets/images/linkedin.png',
-              width: 18,
-              height: 18,
-              color: Colors.white,
+            InkWell(
+              onTap: () {
+                urlLaunch(
+                  'https://www.linkedin.com/in/sushant-maharjan-58043b246/',
+                  context,
+                );
+              },
+              child: Image.asset(
+                'assets/images/linkedin.png',
+                width: 18,
+                height: 18,
+                color: Colors.white,
+              ),
             ),
             SizedBox(height: 16),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/text_styles.dart';
+import 'package:portfolio/pages/widgets/map_screen.dart';
 
 class AddressInfo extends StatelessWidget {
   const AddressInfo({super.key});
@@ -72,9 +73,9 @@ class AddressInfo extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-            child: Container(
-              color: Colors.pinkAccent,
-              child: Center(child: Text('Map here>')),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: MapScreen(),
             ),
           ),
         ),

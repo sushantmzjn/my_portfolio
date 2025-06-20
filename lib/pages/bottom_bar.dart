@@ -29,7 +29,12 @@ class BottomBar extends StatelessWidget {
               urlLaunch('https://github.com/sushantmzjn', context);
             },
           ),
-          SocialContainer(imagePath: 'assets/images/fb.png', onPressed: () {}),
+          SocialContainer(
+            imagePath: 'assets/images/gmail.png',
+            onPressed: () {
+              urlLaunch('mailto:sushantmaharjan08@gmail.com', context);
+            },
+          ),
         ],
       ),
     );
