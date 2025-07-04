@@ -19,38 +19,30 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    
+
     // Initialize animation controllers
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-    
+
     _scaleController = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
 
     // Create animations
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _fadeController,
-      curve: Curves.easeInOut,
-    ));
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _fadeController, curve: Curves.easeInOut),
+    );
 
-    _scaleAnimation = Tween<double>(
-      begin: 0.5,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _scaleController,
-      curve: Curves.elasticOut,
-    ));
+    _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
+      CurvedAnimation(parent: _scaleController, curve: Curves.elasticOut),
+    );
 
     // Start animations
     _startAnimations();
-    
+
     // Navigate to dashboard after delay
     _navigateToDashboard();
   }
@@ -67,13 +59,11 @@ class _SplashScreenState extends State<SplashScreen>
     if (mounted) {
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => const Dashboard(),
+          pageBuilder:
+              (context, animation, secondaryAnimation) => const Dashboard(),
           transitionDuration: const Duration(milliseconds: 500),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
+            return FadeTransition(opacity: animation, child: child);
           },
         ),
       );
@@ -106,23 +96,30 @@ class _SplashScreenState extends State<SplashScreen>
                     height: 120,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 3,
-                      ),
+                      border: Border.all(color: Colors.white, width: 3),
                     ),
-                    child: const Icon(
-                      Icons.person,
-                      size: 60,
-                      color: Colors.white,
+                    child: ClipOval(
+                      child: Image.asset(
+                        'assets/images/me.PNG',
+                        fit: BoxFit.cover,
+                        width: 114,
+                        height: 114,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(
+                            Icons.person,
+                            size: 60,
+                            color: Colors.white,
+                          );
+                        },
+                      ),
                     ),
                   ),
                 );
               },
             ),
-            
+
             const SizedBox(height: 30),
-            
+
             // Animated text
             AnimatedBuilder(
               animation: _fadeAnimation,
@@ -153,9 +150,9 @@ class _SplashScreenState extends State<SplashScreen>
                 );
               },
             ),
-            
+
             const SizedBox(height: 50),
-            
+
             // Loading indicator
             AnimatedBuilder(
               animation: _fadeAnimation,
