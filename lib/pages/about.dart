@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:portfolio/core/text_styles.dart';
 import 'package:portfolio/pages/widgets/custom_outlined_button.dart';
+import 'package:universal_html/html.dart' as html;
 
 class About extends StatefulWidget {
   const About({super.key});
@@ -67,6 +69,46 @@ class _AboutState extends State<About> with TickerProviderStateMixin {
     }
   }
 
+  Future<void> _downloadResume() async {
+    try {
+      // Load the resume file from assets
+      final ByteData data = await rootBundle.load('assets/resume/resume.pdf');
+      final List<int> bytes = data.buffer.asUint8List();
+
+      // Create a blob and download link for web
+      final blob = html.Blob([bytes], 'application/pdf');
+      final url = html.Url.createObjectUrlFromBlob(blob);
+
+      // Create a temporary anchor element and trigger download
+      html.AnchorElement(href: url)
+        ..setAttribute('download', 'SUSHANT_MAHARJAN_RESUME.pdf')
+        ..click();
+
+      // Clean up the object URL
+      html.Url.revokeObjectUrl(url);
+
+      // Show message
+      if (mounted) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Resume downloaded successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error downloading resume: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -126,47 +168,45 @@ class _AboutState extends State<About> with TickerProviderStateMixin {
             ),
           ),
           Expanded(
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 140, 0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'About Me',
-                      style: TextStyles.boldTextStyle.copyWith(
-                        color: Colors.white,
-                        fontSize: 28,
-                        letterSpacing: 1,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.grey,
-                        decorationThickness: 2,
-                      ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 140, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'About Me',
+                    style: TextStyles.boldTextStyle.copyWith(
+                      color: Colors.white,
+                      fontSize: 28,
+                      letterSpacing: 1,
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.grey,
+                      decorationThickness: 2,
                     ),
-                    SizedBox(height: 10),
-                    Text(
-                      'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable.',
-                      style: TextStyles.regularTextStyle.copyWith(
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable.',
+                    style: TextStyles.regularTextStyle.copyWith(
+                      fontSize: 14,
+                      color: Colors.white,
                     ),
-                    SizedBox(height: 15),
-                    Text(
-                      'If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem IpsumThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour,',
-                      style: TextStyles.regularTextStyle.copyWith(
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
+                  ),
+                  SizedBox(height: 15),
+                  Text(
+                    'If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem IpsumThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour,',
+                    style: TextStyles.regularTextStyle.copyWith(
+                      fontSize: 14,
+                      color: Colors.white,
                     ),
-                    SizedBox(height: 30),
-                    CustomOutlinedButton(
-                      label: 'DOWNLOAD CV',
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 30),
+                  CustomOutlinedButton(
+                    label: 'DOWNLOAD CV',
+                    onPressed: _downloadResume,
+                  ),
+                ],
               ),
             ),
           ),

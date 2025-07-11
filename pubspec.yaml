@@ -23,6 +23,7 @@ dependencies:
   latlong2: ^0.9.1
   flutter_map_cancellable_tile_provider: ^3.1.0
   dio: ^5.8.0+1
+  universal_html: ^2.2.4
   
 
 
@@ -47,6 +48,7 @@ flutter:
   assets:
     - assets/icon/
     - assets/images/
+    - assets/resume/
     # - images/a_dot_ham.jpeg
 
 
